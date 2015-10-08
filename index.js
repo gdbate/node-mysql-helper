@@ -13,7 +13,6 @@
   mysqlWrapper.prototype.connect = function(options, connections){
     if(typeof options == 'object')
       this.options=options;
-    console.log(this.options);
     this.options.connectionLimit = connections || 1;
     this.pool = Mysql.createPool(this.options);
     return this;

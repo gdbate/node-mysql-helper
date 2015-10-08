@@ -7,7 +7,7 @@ A lightweight Promise-based wrapper and helper for felixge's node-mysql.
 * Very slim library, only 2 dependancies ([Q](https://github.com/kriskowal/q) and [felixge's node-mysql](https://github.com/felixge/node-mysql)).
 * Convenience functions for record selecting, inserting, updating and insert (on duplicate) updating.
 * Connection pooling.
-* Everything based on Promises
+* Everything based on Promises.
 
 ##Initialize
 
@@ -22,7 +22,7 @@ var mysqlOptions = {
 	user: 'root',
 	password: 'chicken',
 	socketPath: false
-}
+};
 
 //For 5 pooled connections
 var Mysql = new Mysqlhelper().connect(mysqlOptions, 5);
@@ -34,14 +34,18 @@ var Mysql = new Mysqlhelper().connect(mysqlOptions, 5);
 
 //find user id 35
 Mysql.record('user', 35);
-	.catch(function(err){})
+	.catch(function(err){
+		console.log('Error fetching record, mysql error:', err.message);
+	})
 	.then(function(record){
 		console.log(record);
 	});
 
 //or select with an object
 Mysql.record('user', {id: 35});
-	.catch(function(err){})
+	.catch(function(err){
+		console.log('Error fetching record, mysql error:', err.message);
+	})
 	.then(function(record){
 		console.log(record);
 	});
@@ -77,13 +81,18 @@ Mysql.insert('user', insert)
 
 ```javascript
 
+var where = {
+	firstName: 'Greg',
+	lastName: 'Bate'
+};
+
 var update = {
 	lastSeen: '2015-10-07 21-54:58'
 };
 
-Mysql.insertUpdate('user', { firstName: 'Greg', lastName: 'Bate' }, update)
+update('user', where, update)
 	.catch(function(err){
-		console.log('Error creating new user, mysql error:', err.message);
+		console.log('Error updating record, mysql error:', err.message);
 	})
 	.then(function(info){
 		console.log('User Updated!', info);
