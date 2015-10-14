@@ -5,11 +5,7 @@
   var Q = require('q'),
     Mysql = require('mysql');
 
-// Dependancies ===============
-
-  module.exports = mysqlWrapper();
-
-// Dependancies ===============
+// Library ====================
 
   function mysqlWrapper(options){
     this.options = options || {};
@@ -37,15 +33,15 @@
     var self = this;
     return Q.promise(function(resolve, reject){
       self.connection()
-        .catch(function(err){
-          reject(err);
-        })
         .then(function(connection){
           connection.query(query, values, function(err, results){
             connection.release();
             return err ? reject(err) : resolve(results);
           });
         })
+        .catch(function(err){
+          reject(err);
+        });
     });
   }
 

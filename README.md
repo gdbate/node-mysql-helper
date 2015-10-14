@@ -159,7 +159,7 @@ Personally I never delete, I set a field to deletedAt or status = deleted. If yo
 
 ## To Do
 
-* Support ES6
+* Support ES6 Promises
 * Delete method
 * Inline documenation
 * Some Spelcheking
