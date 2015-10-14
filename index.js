@@ -5,6 +5,8 @@
   var Q = require('q'),
     Mysql = require('mysql');
 
+  module.exports = mysqlWrapper;
+
 // Library ====================
 
   function mysqlWrapper(options){
