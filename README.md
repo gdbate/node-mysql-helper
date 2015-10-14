@@ -34,20 +34,20 @@ var Mysql = new Mysqlhelper().connect(mysqlOptions, 5);
 
 //find user id 35
 Mysql.record('user', 35);
-	.catch(function(err){
-		console.log('Error fetching record, mysql error:', err.message);
-	})
 	.then(function(record){
 		console.log(record);
+	})
+	.catch(function(err){
+		console.log('Error fetching record, mysql error:', err.message);
 	});
 
 //or select with an object
 Mysql.record('user', {id: 35});
-	.catch(function(err){
-		console.log('Error fetching record, mysql error:', err.message);
-	})
 	.then(function(record){
 		console.log(record);
+	})
+	.catch(function(err){
+		console.log('Error fetching record, mysql error:', err.message);
 	});
 
 ```
@@ -64,11 +64,11 @@ var insert = {
 };
 
 Mysql.insert('user', insert)
-	.catch(function(err){
-		console.log('Error creating new user, mysql error:', err.message);
-	})
 	.then(function(info){
 		console.log('New User Entered!', info);
+	})
+	.catch(function(err){
+		console.log('Error creating new user, mysql error:', err.message);
 	});
 
 //info is an object with affectedRows and insertId
@@ -91,11 +91,11 @@ var update = {
 };
 
 update('user', where, update)
-	.catch(function(err){
-		console.log('Error updating record, mysql error:', err.message);
-	})
 	.then(function(info){
 		console.log('User Updated!', info);
+	})
+	.catch(function(err){
+		console.log('Error updating record, mysql error:', err.message);
 	});
 
 //info is an object with affectedRows, changedRows
@@ -120,11 +120,11 @@ var update = {
 };
 
 Mysql.insertUpdate('user', insert, update)
-	.catch(function(err){
-		console.log('Error creating new user, mysql error:', err.message);
-	})
 	.then(function(info){
 		console.log('New User Entered (or updated)!', info);
+	})
+	.catch(function(err){
+		console.log('Error creating new user, mysql error:', err.message);
 	});
 //info is an object with affectedRows, changedRows and insertId (where applicable)
 
@@ -136,11 +136,8 @@ Mysql.insertUpdate('user', insert, update)
 
 ```javascript
 
-//fetch a connection from the pool	
+//fetch a connection from the pool
 self.connection()
-	.catch(function(err){
-		reject(err);
-	})
 	.then(function(connection){
 		//run a query on a successfully obtained connection
 		connection.query(query, values, function(err, results){
@@ -148,6 +145,9 @@ self.connection()
 			return err ? reject(err) : resolve(results);
 		});
 	})
+	.catch(function(err){
+		reject(err);
+	});
 
 ```
 
@@ -159,6 +159,7 @@ Personally I never delete, I set a field to deletedAt or status = deleted. If yo
 
 ## To Do
 
+* Support ES6
 * Delete method
 * Inline documenation
 * Some Spelcheking
@@ -167,4 +168,3 @@ Personally I never delete, I set a field to deletedAt or status = deleted. If yo
 * Compatibility with RDB Select Module
 * Make sure values are optional on custom query
 * More Testing (heh)
-

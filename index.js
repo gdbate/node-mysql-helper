@@ -1,9 +1,15 @@
 ;(function(){
 
+// Dependancies ===============
+
   var Q = require('q'),
     Mysql = require('mysql');
 
-  module.exports = mysqlWrapper;
+// Dependancies ===============
+
+  module.exports = mysqlWrapper();
+
+// Dependancies ===============
 
   function mysqlWrapper(options){
     this.options = options || {};
