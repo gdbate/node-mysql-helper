@@ -19,13 +19,14 @@ var MysqlHelper = require('node-mysql-helper');
 
 var mysqlOptions = {
 	host: 'localhost',
-	user: 'root',
+	user: 'myuser',
 	password: 'chicken',
+	database: 'mydb',
 	socketPath: false
 };
 
 //For 5 pooled connections
-var Mysql = new Mysqlhelper().connect(mysqlOptions, 5);
+var Mysql = new MysqlHelper().connect(mysqlOptions, 5);
 
 ```
 ## Selecting a record
