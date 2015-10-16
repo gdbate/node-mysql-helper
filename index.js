@@ -14,6 +14,7 @@
   mysqlHelper.connect = function(options, connections){
     options.connectionLimit = connections || 1;
     this.pool = Mysql.createPool(options);
+    this.lastQuery = '';
   }
 
   mysqlHelper.connection = function(){
@@ -31,10 +32,11 @@
     return Q.promise(function(resolve, reject){
       self.connection()
         .then(function(connection){
-          connection.query(query, values, function(err, results){
+          var processed = connection.query(query, values, function(err, results){
             connection.release();
             return err ? reject(err) : resolve(results);
           });
+          self.lastQuery = processed.sql;
         })
         .catch(function(err){
           reject(err);
@@ -85,6 +87,10 @@
   }
 
 // Utils ======================
+
+  mysqlHelper.getLastQuery = function(){
+    return this.lastQuery;
+  }
 
   mysqlHelper.escapeId = function(id){
     return Mysql.escapeId(id);

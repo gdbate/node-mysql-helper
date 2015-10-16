@@ -166,6 +166,21 @@ Mysql.delete('user', {id: 35});
 
 ```
 
+## Utilities
+
+```javascript
+
+//Get last query (after escaping values)
+var last = Mysql.getLastQuery();
+
+//Escape a database,table or column name
+var table = Mysql.escapeId(tableName);
+
+//Escape a string
+var noSqlInject = Mysql.escapeId(req.body.firstName);
+
+```
+
 ## To Do
 
 * Support ES6 Promises
