@@ -1,6 +1,6 @@
 # node-mysql-helper
 
-A lightweight Promise-based wrapper and helper for felixge's node-mysql.
+A lightweight Promise-based wrapper and helper for felixge's node-Mysql.
 
 ##Features:
 
@@ -15,7 +15,7 @@ Format you connection options based on [felixge's options](https://github.com/fe
 
 ```javascript
 
-var MysqlHelper = require('node-mysql-helper');
+var Mysql = require('node-mysql-helper');
 
 var mysqlOptions = {
 	host: 'localhost',
@@ -26,7 +26,7 @@ var mysqlOptions = {
 };
 
 //For 5 pooled connections
-MysqlHelper.connect(mysqlOptions, 5);
+Mysql.connect(mysqlOptions, 5);
 
 ```
 ## Selecting a record

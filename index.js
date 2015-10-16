@@ -68,7 +68,7 @@
 
   mysqlHelper.update = function(table, index, record){
     var query = 'UPDATE ' + Mysql.escapeId(table) + ' SET ? WHERE ?';
-    var values = [this.idOrPairs(index), record];
+    var values = [record, this.idOrPairs(index)];
     return this.query(query, values);
   }
 
@@ -93,6 +93,8 @@
   mysqlHelper.escape = function(value){
     return Mysql.escape(value);
   }
+
+// Export =====================
 
   module.exports = mysqlHelper;
 
