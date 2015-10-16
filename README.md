@@ -153,15 +153,24 @@ The query values are used in the same way [felixge's module](https://github.com/
 
 ## Deleting a record
 
-Personally I never delete, I set a field to deletedAt or status = deleted. If you want this feature, let me know, or add it!
+```javascript
+
+//or select with an object
+Mysql.delete('user', {id: 35});
+	.then(function(record){
+		console.log(record);
+	})
+	.catch(function(err){
+		console.log('Error deleting record, mysql error:', err.message);
+	});
+
+```
 
 ## To Do
 
 * Support ES6 Promises
-* Delete method
 * Inline documenation
 * Some Spelcheking
-* Easier access to escape methods
 * Limited convenience functions like YMD and DATETIME Functions
 * Compatibility with RDB Select Module
 * Make sure values are optional on custom query

@@ -78,6 +78,12 @@
     return this.query(query, values);
   }
 
+  mysqlHelper.delete = function(table, index){
+    var query = 'DELETE FROM ' + Mysql.escapeId(table) + ' WHERE ?';
+    var values = [this.idOrPairs(index)];
+    return this.query(query, values);
+  }
+
 // Utils ======================
 
   mysqlHelper.escapeId = function(id){
