@@ -26,7 +26,7 @@ var mysqlOptions = {
 };
 
 //For 5 pooled connections
-var Mysql = new MysqlHelper().connect(mysqlOptions, 5);
+MysqlHelper.connect(mysqlOptions, 5);
 
 ```
 ## Selecting a record
