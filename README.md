@@ -137,14 +137,11 @@ Mysql.insertUpdate('user', insert, update)
 
 ```javascript
 
-//fetch a connection from the pool
-self.connection()
-	.then(function(connection){
-		//run a query on a successfully obtained connection
-		connection.query(query, values, function(err, results){
-			connection.release();
-			return err ? reject(err) : resolve(results);
-		});
+//query has sql structure
+//values will be placed in the query when escaped, and are optional
+Mysql.query(query, values)
+	.then(function(results){
+		console.log('my query results', results);
 	})
 	.catch(function(err){
 		reject(err);
