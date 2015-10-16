@@ -33,18 +33,16 @@
 
   mysqlWrapper.prototype.query = function(query, values){
     var self = this;
-    return Q.promise(function(resolve, reject){
-      self.connection()
-        .then(function(connection){
-          connection.query(query, values, function(err, results){
-            connection.release();
-            return err ? reject(err) : resolve(results);
-          });
-        })
-        .catch(function(err){
-          reject(err);
+    return self.connection()
+      .then(function(connection){
+        connection.query(query, values, function(err, results){
+          connection.release();
+          return err ? reject(err) : resolve(results);
         });
-    });
+      })
+      .catch(function(err){
+        reject(err);
+      });
   }
 
   mysqlWrapper.prototype.idOrPairs=function(index){
@@ -81,6 +79,16 @@
     var query = 'INSERT INTO ' + Mysql.escapeId(table) + ' SET ? ON DUPLICATE KEY UPDATE ?';
     var values = [recordInsert, recordUpdate];
     return this.query(query, values);
+  }
+
+// Utils ======================
+
+  mysqlWrapper.prototype.escapeId = function(id){
+    return Mysql.escapeId(id);
+  }
+
+  mysqlWrapper.prototype.escape = function(value){
+    return Mysql.escape(value);
   }
 
 }());
