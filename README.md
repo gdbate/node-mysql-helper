@@ -91,7 +91,7 @@ var update = {
 	lastSeen: '2015-10-07 21-54:58'
 };
 
-update('user', where, update)
+Mysql.update('user', where, update)
 	.then(function(info){
 		console.log('User Updated!', info);
 	})
