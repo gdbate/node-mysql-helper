@@ -32,10 +32,11 @@
     return Q.promise(function(resolve, reject){
       self.connection()
         .then(function(connection){
-          var processed = connection.query(query, values, function(err, results){
+          var processed, cb = function(err, results){
             connection.release();
             return err ? reject(err) : resolve(results);
-          });
+          };
+          processed = values ? connection.query(query, values, cb) : connection.query(query, cb);
           self.lastQuery = processed.sql;
         })
         .catch(function(err){
@@ -58,8 +59,11 @@
   }
 
   mysqlHelper.record = function(table, index){
-    var query = 'SELECT * FROM ' + Mysql.escapeId(table) + ' WHERE ?';
-    var values = [this.idOrPairs(index)];
+    var values, query = 'SELECT * FROM ' + Mysql.escapeId(table);
+    if (index) {
+      query += ' WHERE ?';
+      values = [this.idOrPairs(index)];
+    }
     return this.query(query, values);
   }
 
