@@ -34,7 +34,7 @@ Mysql.connect(mysqlOptions, 5);
 ```javascript
 
 //find user id 35
-Mysql.record('user', 35);
+Mysql.record('user', 35)
 	.then(function(record){
 		console.log(record);
 	})
@@ -43,7 +43,7 @@ Mysql.record('user', 35);
 	});
 
 //or select with an object
-Mysql.record('user', {id: 35});
+Mysql.record('user', {id: 35})
 	.then(function(record){
 		console.log(record);
 	})
@@ -156,7 +156,7 @@ The query values are used in the same way [felixge's module](https://github.com/
 ```javascript
 
 //or select with an object
-Mysql.delete('user', {id: 35});
+Mysql.delete('user', {id: 35})
 	.then(function(record){
 		console.log(record);
 	})
