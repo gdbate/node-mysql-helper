@@ -58,9 +58,20 @@
   }
 
   mysqlHelper.record = function(table, index){
-    var query = 'SELECT * FROM ' + Mysql.escapeId(table) + ' WHERE ?';
-    var values = [this.idOrPairs(index)];
-    return this.query(query, values);
+    var query = 'SELECT * FROM ' + Mysql.escapeId(table) + ' WHERE ';
+    var idOrPairs = this.idOrPairs(index);
+    if(idOrPairs.constructor === Object){
+      var values = [];
+      for(var i in idOrPairs){
+        query += Mysql.escapeId(i) + ' = ? AND '
+        values.push(idOrPairs[i]);
+      }
+      query = query.substr(0, query.length - 5);
+      return this.query(query, values);
+    }else{
+      query += '?';
+      return this.query(query, idOrPairs);
+    }
   }
 
   mysqlHelper.insert = function(table, record, ignore){
