@@ -11,8 +11,7 @@
 
 // Wrapper ====================
 
-  mysqlHelper.connect = function(options, connections){
-    options.connectionLimit = connections || 1;
+  mysqlHelper.connect = function(options){
     this.pool = Mysql.createPool(options);
     this.lastQuery = '';
   }

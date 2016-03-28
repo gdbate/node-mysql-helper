@@ -22,11 +22,12 @@ var mysqlOptions = {
 	user: 'myuser',
 	password: 'chicken',
 	database: 'mydb',
-	socketPath: false
+	socketPath: false,
+	connectionLimit: 5
 };
 
 //For 5 pooled connections
-Mysql.connect(mysqlOptions, 5);
+Mysql.connect(mysqlOptions);
 
 ```
 ## Selecting a record
