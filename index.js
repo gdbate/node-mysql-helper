@@ -79,9 +79,22 @@
   }
 
   mysqlHelper.update = function(table, index, record){
-    var query = 'UPDATE ' + Mysql.escapeId(table) + ' SET ? WHERE ?';
-    var values = [record, this.idOrPairs(index)];
-    return this.query(query, values);
+    var query = 'UPDATE ' + Mysql.escapeId(table) + ' SET ? WHERE ';
+    var idOrPairs = this.idOrPairs(index);
+    if(idOrPairs.constructor === Object){
+      var values = [];
+      for(var i in idOrPairs){
+        query += Mysql.escapeId(i) + ' = ? AND '
+        values.push(idOrPairs[i]);
+      }
+      query = query.substr(0, query.length - 5);
+      values.unshift(record)
+      return this.query(query, values);
+    } else {
+      query += '?';
+      var values = [record, this.idOrPairs(index)];
+      return this.query(query, values);
+    }
   }
 
   mysqlHelper.insertUpdate = function(table, recordInsert, recordUpdate){
@@ -91,8 +104,21 @@
   }
 
   mysqlHelper.delete = function(table, index){
-    var query = 'DELETE FROM ' + Mysql.escapeId(table) + ' WHERE ?';
-    var values = [this.idOrPairs(index)];
+    var query = 'DELETE FROM ' + Mysql.escapeId(table) + ' WHERE ';
+    var idOrPairs = this.idOrPairs(index);
+    if(idOrPairs.constructor === Object){
+      var values = [];
+      for(var i in idOrPairs){
+        query += Mysql.escapeId(i) + ' = ? AND '
+        values.push(idOrPairs[i]);
+      }
+      query = query.substr(0, query.length - 5);
+      return this.query(query, values);
+    } else {
+      query += '?';
+      var values = [this.idOrPairs(index)];
+      return this.query(query, values);
+    }
     return this.query(query, values);
   }
 
