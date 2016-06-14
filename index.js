@@ -57,9 +57,10 @@
   }
 
   mysqlHelper.record = function(table, index){
+    var self = this;
     return Q.promise(function(resolve, reject){
       var query = 'SELECT * FROM ' + Mysql.escapeId(table) + ' WHERE ';
-      var idOrPairs = this.idOrPairs(index);
+      var idOrPairs = self.idOrPairs(index);
       if(idOrPairs.constructor === Object){
         var values = [];
         for(var i in idOrPairs){
@@ -71,7 +72,7 @@
         query += '?';
         values = idOrPairs;
       }
-      this.query(query, values)
+      self.query(query, values)
         .then(function(results){
           if(results.length == 1)
             resolve(results[0]);
