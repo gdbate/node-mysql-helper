@@ -57,20 +57,31 @@
   }
 
   mysqlHelper.record = function(table, index){
-    var query = 'SELECT * FROM ' + Mysql.escapeId(table) + ' WHERE ';
-    var idOrPairs = this.idOrPairs(index);
-    if(idOrPairs.constructor === Object){
-      var values = [];
-      for(var i in idOrPairs){
-        query += Mysql.escapeId(i) + ' = ? AND '
-        values.push(idOrPairs[i]);
+    return Q.promise(function(resolve, reject){
+      var query = 'SELECT * FROM ' + Mysql.escapeId(table) + ' WHERE ';
+      var idOrPairs = this.idOrPairs(index);
+      if(idOrPairs.constructor === Object){
+        var values = [];
+        for(var i in idOrPairs){
+          query += Mysql.escapeId(i) + ' = ? AND '
+          values.push(idOrPairs[i]);
+        }
+        query = query.substr(0, query.length - 5);
+      }else{
+        query += '?';
+        values = idOrPairs;
       }
-      query = query.substr(0, query.length - 5);
-      return this.query(query, values);
-    }else{
-      query += '?';
-      return this.query(query, idOrPairs);
-    }
+      this.query(query, values)
+        .then(function(results){
+          if(results.length == 1)
+            resolve(results[0]);
+          else
+            reject(new Error('Unexpected Result (' + results.length + ' Records Returned)'));
+        })
+        .catch(function(err){
+          reject(err);
+        });
+    });
   }
 
   mysqlHelper.insert = function(table, record, ignore){

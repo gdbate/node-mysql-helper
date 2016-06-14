@@ -1,6 +1,6 @@
 {
   "name": "node-mysql-helper",
-  "version": "0.6.1",
+  "version": "0.6.2",
 	"description": "A lightweight Promise-based wrapper and helper for felixge's node-mysql.",
 	"homepage": "https://github.com/gdbate/node-mysql-helper",
 	"author": "Greg Bate <gdbate@gmail.com> (https://github.com/gdbate)",
