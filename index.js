@@ -76,6 +76,8 @@
         .then(function(results){
           if(results.length == 1)
             resolve(results[0]);
+          else if(results.length == 0)
+            resolve(null);
           else
             reject(new Error('Unexpected Result (' + results.length + ' Records Returned)'));
         })
