@@ -97,7 +97,7 @@
     var values = [record];
     if(typeof index == 'object'){
       for(var i in index){
-        query += this.escapeId(i) + ' = ? AND';
+        query += ' ' + this.escapeId(i) + ' = ? AND';
         values.push(index[i]);
       }
       query = query.substr(0, query.length - 4);
