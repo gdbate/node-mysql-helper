@@ -93,8 +93,18 @@
   }
 
   mysqlHelper.update = function(table, index, record){
-    var query = 'UPDATE ' + Mysql.escapeId(table) + ' SET ? WHERE ?';
-    var values = [record, this.idOrPairs(index)];
+    var query = 'UPDATE ' + Mysql.escapeId(table) + ' SET ? WHERE';
+    var values = [record];
+    if(typeof index == 'object'){
+      for(var i in index){
+        query += this.escapeId(i) + ' = ? AND';
+        values.push(index[i]);
+      }
+      query = query.substr(0, query.length - 4);
+    }else{
+      query += ' ?';
+      values.push(record);
+    }
     return this.query(query, values);
   }
 
