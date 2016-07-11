@@ -102,8 +102,8 @@
       }
       query = query.substr(0, query.length - 4);
     }else{
-      query += ' ?';
-      values.push(record);
+      query += ' `id` = ?';
+      values.push(index);
     }
     return this.query(query, values);
   }
